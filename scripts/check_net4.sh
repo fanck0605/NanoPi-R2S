@@ -3,24 +3,12 @@
 #
 # this script is writing for openwrt
 # this script need the interface named 'lan'
-# to use this script, you must install 'jq' first
-# we need the `jq` to parse `ifstatus`'s result
 
-# usage: `/bin/sh /path/to/check_net4.sh >/dev/null 2>&1 &`
+# usage: `nohup /bin/sh /path/to/check_net4.sh 1>/dev/null 2>&1 &`
 
 logger 'Check Net4: Script started!'
 
-get_ipv4_address() {
-  if ! if_status=$(ifstatus $1); then
-    return 1
-  fi
-  echo $if_status | jq -r '."ipv4-address"[0]."address"'
-}
-
-if ! lan_addr=$(get_ipv4_address lan); then
-  logger "Check Net4: Don't support your network environment!"
-  exit 1
-fi
+lan_addr=`ifconfig |grep inet| sed -n '1p'|awk '{print $2}'|awk -F ':' '{print $2}'`
 
 fail_count=0
 
