@@ -149,6 +149,9 @@ jobs:
           mkdir -p ./artifact/
           gzip rk3328/out/FriendlyWrt*.img
           cp rk3328/out/FriendlyWrt*.img.gz ./artifact/
+          cd ./artifact/
+          md5sum *img* > md5sum.txt
+          cd ..
 
       # 保存交叉编译配置, 需要先设置平台
       - name: Save Configurations
