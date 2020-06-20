@@ -134,7 +134,7 @@ jobs:
       - name: Customize Configuration Files
         run: |
           cat config_rk3328 > rk3328/configs/config_rk3328
-          #cat config_usb-net >> rk3328/configs/config_rk3328
+          cat config_usb-net >> rk3328/configs/config_rk3328
 
       - name: Add Check Wan4
         run: |
@@ -143,10 +143,10 @@ jobs:
           sed -i '/^exit/i\/bin/sh /usr/bin/check_net4 >/dev/null 2>&1 &' package/base-files/files/etc/rc.local
 
       # 如果不喜欢互换, 直接注释即可
-      - name: Swap wan and lan
-        run: |
-          cd rk3328/friendlywrt
-          git apply ../../patches/003-openwrt-swap-wan-and-lan.patch
+      #- name: Swap wan and lan
+        #run: |
+         # cd rk3328/friendlywrt
+          #git apply ../../patches/003-openwrt-swap-wan-and-lan.patch
 
       - name: Build FriendlyWrt
         run: |
