@@ -1,7 +1,7 @@
 #!/bin/sh
 
     getgw() {
-		gw=$(ifconfig pppoe-${1} | grep inet | awk '{print $3}' | cut -c 7-)
+		gw=$(ifconfig pppoe-${1} | grep P-t-P | awk '{print $3}' | cut -c 7-)
 		echo $gw
     }
 
@@ -19,7 +19,7 @@
 		#echo "Ping----${gw}-------"
 		ping -c 1 -W 1 $gw > /dev/null
 		if [ $? -eq 0 ];then
-			echo 'ok'
+			#echo 'ok'
 			sleep 2
 		else
 			erri=$(( $erri + 1 ))
